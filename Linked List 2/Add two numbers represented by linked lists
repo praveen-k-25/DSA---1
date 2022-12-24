@@ -1,0 +1,156 @@
+
+import java.util.*;
+import java.io.*;
+public class Main {
+    
+    public static void main(String args[]) {
+        Scanner input = new Scanner(System.in);
+        int n = input.nextInt();
+        int m = input.nextInt();
+        LinkedList a = new LinkedList();
+        LinkedList b = new LinkedList();
+        for(int i = 0; i < n; i++){
+            a.add(input.nextInt());
+        }
+        for(int i = 0; i < m; i++){
+            b.add(input.nextInt());
+        }
+        LinkedList ans = new LinkedList();
+        Solution A = new Solution();
+        ans.head = A.addTwoLinkedLists(a.head, b.head,0);
+        ans.printList();
+
+    }
+}
+
+
+class Node{
+    int data;
+    Node next;
+    Node(int data){
+        this.data = data;
+        next = null;
+    }
+}
+class LinkedList{
+    Node head;
+    void add(int data){
+        Node new_node = new Node(data);
+        if(head == null){
+            head = new_node;
+            return;
+        }
+        Node curr = head;
+        while(curr.next != null)
+            curr = curr.next;
+        curr.next = new_node;
+    }
+    void printList()
+    {
+        Node temp = head;
+        while (temp != null)
+        {
+           System.out.print(temp.data+" ");
+           temp = temp.next;
+        }  
+        System.out.println();
+    }
+}
+
+
+class Solution
+{
+
+    public static Node addTwoLinkedLists(Node head1, Node head2,int c)
+    {
+		Node first = null;
+		Node first_s = null;
+		Node sec = null;
+		Node sec_s = null;
+		int first_data=0,sec_data=0;
+		while(head1 != null || head2 != null){
+			if(head1 != null && head2 != null){
+				first_s = head1;
+				head1=head1.next;
+				first_s.next = first;
+				first = first_s;
+				sec_s = head2;
+				head2=head2.next;
+				sec_s.next = sec;
+				sec = sec_s;
+				first_data=first.data;
+				sec_data=sec.data;
+			}
+			else if(head1 == null && head2 != null){
+				sec_s = head2;
+				head2=head2.next;
+				sec_s.next = sec;
+				sec = sec_s;
+				sec_data=sec.data;
+			}
+			else if(head1 != null && head2 == null){
+				first_s = head1;
+				head1=head1.next;
+				first_s.next = first;
+				first = first_s;
+				first_data=first.data;
+			}
+		}
+		head1=new Node(-1);
+		Node n = head1;
+		int count = 0;
+		while(first != null || sec != null){
+			if(first != null && sec != null){
+				count = first.data + sec.data + c; 
+				c=0;
+				if(count > 9) {
+					c = count/10;
+					count = count%10;
+				}
+				head1.next = new Node(count);
+				first = first.next;
+				sec = sec.next;
+			}
+			else if(first == null && sec != null){
+				count = sec.data + c;c=0;
+				if(count > 9){
+					c = count/10;
+					count = count%10;
+				}
+				head1.next = new Node(count);
+				sec=sec.next;
+			}
+			else if(first != null && sec == null){
+				count = first.data + c;c=0;
+				if(count > 9){
+					c = count/10;
+					count = count%10;
+				}
+				head1.next = new Node (count);
+				first = first.next;
+			}
+			
+			if(first != null || sec != null)
+			    head1=head1.next;
+			if(first == null && sec == null) {
+			    if(c>0){
+			        head1 = head1.next;
+			        head1.next = new Node(c);
+			        head1 = head1.next;
+			        c=0;
+			    }
+			}	
+		}
+		n=n.next;
+		first = null;
+		sec=null;
+		while(n!= null){
+		    sec = n;
+		    n=n.next;
+		    sec.next = first;
+		    first =sec; 
+		}
+		return first;
+		
+	} 
+}
