@@ -1,0 +1,21 @@
+import java.util.*;
+
+public class Main {
+	static int numOfDigi(int n) {
+		int c=0;
+        if(n == 0)
+			return c;
+
+		c = numOfDigi(n/10);
+		return c+1;
+		
+    }
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        int n;
+        n = sc.nextInt();
+        int result = numOfDigi(n);
+        System.out.println(result);
+        sc.close();
+    }
+}
