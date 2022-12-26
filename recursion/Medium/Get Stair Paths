@@ -1,0 +1,26 @@
+import java.io.*;
+import java.util.*;
+
+public class Main {
+    public static void main(String[] args) throws Exception {
+        Scanner input = new Scanner(System.in);
+        int n = input.nextInt();
+		ArrayList<String> path = new ArrayList<>();
+        ArrayList<String> paths = getStairPaths(n,"",path);
+        System.out.println(path);
+    }
+
+    public static ArrayList<String> getStairPaths(int n,String ans,ArrayList<String> path) {
+        if(n==0){
+			path.add(ans);
+			return path;
+		}
+		if(n<0)
+			return path;
+		getStairPaths(n-1,ans+"1",path);
+		getStairPaths(n-2,ans+"2",path);
+		getStairPaths(n-3,ans+"3",path);
+		return path;
+    }
+	
+}
