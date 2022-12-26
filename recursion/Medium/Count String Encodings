@@ -1,0 +1,26 @@
+import java.util.*;
+import java.io.*;
+
+public class Main {
+	static String ss = " abcdefghijklmnopqrstuvwxyz";
+    public static int printEncodings(String str,int index,String ans){
+		int c=0;
+        if(str.length() == index)
+			return 1;
+		if(str.charAt(index) == '0')
+			return 0;
+        String ans_next = ans + ss.charAt(str.charAt(index) - '0');
+        c = c + printEncodings(str,index+1,ans_next);
+        if(str.length() - index > 1){
+            int a = ((str.charAt(index)-'0') * 10) + str.charAt(index+1)-'0';
+            if(a<27)
+                c = c + printEncodings(str,index+2,ans+ss.charAt(a));
+        }   
+		return c;
+    }
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        String str = sc.nextLine();
+        System.out.print(printEncodings(str,0,""));
+    }
+}
