@@ -1,0 +1,26 @@
+import java.util.*;
+class Main {
+	static String[] str = {"","ABC","DEF","GHI","JKL","MNO","PQRS","TU","VWX","YZ","",""};
+    static ArrayList <String> OldPhone(int n, int[] keys,ArrayList <String> arr,String ans){
+        if(n == keys.length){
+          arr.add(ans);
+          return arr;
+        }
+        for(int i=0;i<str[keys[n]].length();i++){
+          OldPhone(n+1,keys,arr,ans+str[keys[n]].charAt(i));
+        }
+        return arr;
+    }
+	
+	public static void main(String[] args) throws Throwable {
+        Scanner sc = new Scanner(System.in);
+        int n = sc.nextInt();
+        int[] keys = new int[n];
+        for(int i=0;i<n;++i){
+            keys[i] = sc.nextInt();
+        }
+		ArrayList <String> ans1= new ArrayList<>();
+        ArrayList <String> ans=OldPhone(0,keys,ans1,"");
+        for(String i:ans) System.out.print(i+" ");
+    }
+}
